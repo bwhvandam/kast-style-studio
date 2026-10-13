@@ -43,6 +43,7 @@
 <div id="matchResult" aria-live="polite"></div></div></dialog>
 <div id="toast" role="status"></div><script>
 'use strict';
+if(new URLSearchParams(location.search).get('kast')==='bob'){(async()=>{try{const r=await fetch('bob-garderobe.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();let cur=[];try{cur=JSON.parse(localStorage.getItem('kast_mvp_v1'))||[]}catch{}const isDemo=!cur.length||cur.every(x=>String(x.id).startsWith('demo'));if(isDemo||confirm(`Je garderobe op dit apparaat (${cur.length} items) vervangen door je volledige garderobe (${d.items.length} items)?`)){localStorage.setItem('kast_mvp_v1',JSON.stringify(d.items));if(Array.isArray(d.history)&&!localStorage.getItem('kast_history_v1'))localStorage.setItem('kast_history_v1',JSON.stringify(d.history));localStorage.setItem('kast_session_v1','bob')}}catch{alert('Je garderobe kon niet worden geladen. Probeer het later opnieuw.')}location.replace(location.pathname)})()}
 const USERS='kast_users_v1',SESSION='kast_session_v1';
 const lsGet=k=>{try{return localStorage.getItem(k)}catch{return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,v);return true}catch{return false}};
 let users=(()=>{try{return JSON.parse(lsGet(USERS))}catch{return null}})();
